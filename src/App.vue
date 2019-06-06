@@ -31,8 +31,8 @@ export default {
   methods: {
     /** 设置负载 */
     setPayLoad() {
-      var tNow = new Date().getTime();
-      var tEnd = tNow + 1000 * 60 * 60;
+      var tNow = jsrsasign.KJUR.jws.IntDate.getNow();
+      var tEnd = jsrsasign.KJUR.jws.IntDate.get('now + 1hour');
       this.jwt_payLoad = {
         sub: "forget",
         iat: tNow, // 签发时间
