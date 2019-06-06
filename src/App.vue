@@ -12,7 +12,7 @@ export default {
   name: "app",
   data() {
     return {
-      number: "123",
+      secret: "123", // 秘钥
 
       jwt_header: {
         alg: "HS256",
@@ -32,9 +32,11 @@ export default {
     /** 设置负载 */
     setPayLoad() {
       var tNow = jsrsasign.KJUR.jws.IntDate.getNow();
-      var tEnd = jsrsasign.KJUR.jws.IntDate.get('now + 1hour');
+      // var tEnd = jsrsasign.KJUR.jws.IntDate.get('now + 1hour');
+      var tEnd = Math.round((new Date().getTime() + 60000)/1000) 
       this.jwt_payLoad = {
-        sub: "forget",
+        sub: "getCode",
+        iss: '123457890', // 签发人
         iat: tNow, // 签发时间
         nbf: tNow, // 生效时间
         exp: tEnd, // 过期时间
@@ -48,7 +50,7 @@ export default {
         "HS256",
         header,
         payload,
-        this.number,
+        this.secret,
       );
     }
   }
